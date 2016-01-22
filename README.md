@@ -10,3 +10,4 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [ECMAScript 6 New Features: Overview & Comparison](http://es6-features.org/)
 - [Learn ES2015](https://babeljs.io/docs/learn-es2015/)
 - [ES6 Overview in 350 Bullet Points](https://github.com/bevacqua/es6/)
+- [egghead.io ES6 Lessons](https://egghead.io/technologies/es6/)
