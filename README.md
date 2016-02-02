@@ -5,6 +5,7 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 #### ES2015 기능별 설명과 예제
 - [01. Arrow Functions](./arrow-functions)
 - [02. Modules](./modules)
+- [03. Classes](./classes)
 
 #### ES2015 를 이해하는데 도움이 되는 링크들
 - [ECMAScript 6 New Features: Overview & Comparison](http://es6-features.org/)
