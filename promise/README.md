@@ -160,4 +160,59 @@ getUsername('test')
 
 위의 예제를 살펴보면 첫 번째 `then` 에서는 이름과 메시지를 더해서 `return` 하는 것을 볼 수 있다. `Promise` 는 이렇게 값을 `return` 하면 내부적으로 `Promise` 로 감싸주기 떄문에 바로 `then` 메서드로 체이닝을 할 수 있다.
 
-**이렇게 체이닝된 상태에서 중간에 에러가 발생할 경우 가까운 `catch` 메서드로 바로 이동하게 된다. 또 `Promise` 는 내부적으로 `try/catch` 형태로 구현되어 있기 때문에 에러 처리의 가독성이 높아지게 된다.**
+**체이닝된 상태에서 중간에 에러가 발생할 경우 가까운 `catch` 메서드로 바로 이동하게 된다. 따라서 체이닝된 상태에서 마지막에만 `catch` 가 위치하는 경우 에러 처리의 가시성이 높아지게 된다.**
+
+**또 `Promise` 는 내부적으로 `try/catch` 형태로 구현되어 있기 때문에 예상치 못한 에러에 대응하는 것도 보다 편리하다.**
+
+
+### Promise.all 메서드
+
+3 개의 비동기 작업이 모두 완료되었을 때에만 다음 작업을 진행하는 상황에서 아래와 같이 코드를 작성한다면 비동기의 장점을 찾을 수 있을까?
+
+```javascript
+async1(param1, function (result1) {
+	async2(param2, function (result2) {
+		async3(param3, function (result3) {
+			console.log('작업의 결과는 %s, %s, %s', result1, result2, result3);
+		});
+	});
+});
+```
+
+코드의 양은 좀더 많아지겠지만, `Promise` 를 활용하면 비동기의 장점도 살리면서 코드의 가독성도 높일 수 있다.
+
+```javascript
+Promise.all([async1(param1), async2(param2), async3(param3)])
+	.then(result => console.log('작업의 결과는 %s, %s, %s', result[0], result[1], result[2]));
+```
+
+실제 동작하는 예를 살펴보자.
+
+```javascript
+function square (num) {
+	return new Promise((resolve, reject) => {
+		//비동기 작업
+		setTimeout(() => resolve(num*num), 3000);
+	});
+}
+
+function sum (arr) {
+	return new Promise((resolve, reject) => {
+		resolve(arr.reduce((sum, num) => sum + num, 0));
+	});
+}
+
+
+Promise.all([square(5), square(7), square(9)])
+	.then(sum)
+	.then(result => console.log(result));
+```
+
+[Promise.all 예제](http://jsbin.com/kohici/edit?js,console)
+
+3 개의 비동기 작업의 결과를 받아서 이들의 합을 구하고 이어서 결과를 출력하는 형태이다. Promise 부분만 보면 전체적으로 어떻게 동작할 지 모두 예측이 가능한 가시성 있는 코드가 쉽게 작성되었다.
+
+
+### 참고 자료
+
+Promise 와 관련해서 한빛 미디어에서 [무료 ebook](http://www.hanbit.co.kr/ebook/look.html?isbn=9788968487293)을 배포중인데, 이 책의 내용이 상당히 괜찮은 편이어서 이 책을 참고하는 것을 권장한다.
