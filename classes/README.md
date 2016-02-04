@@ -1,6 +1,6 @@
 ## Class
 
-ES2015에서는 prototype 기반의 상속을 보다 명료하게 표현하는 class가 추가가 되었다. 또한 class는 함수와 다르지 않으며, class 선언 과 class 표현식을 제공한다.
+ES2015에서는 prototype 기반의 상속을 보다 명료하게 표현하는 class 기능이 추가가 되었다. 추가된 class는 함수와 다르지 않으며, 클래스 선언과 클래스 표현식을 제공한다.
 
 
 ### class 선언
@@ -20,7 +20,7 @@ var man = new Person();
 
 ```javascript
 
-var person = class{
+var person = class{     // 이름이 없는 클래스 표현
     constructor(){}
 }
 
@@ -35,19 +35,31 @@ var person = class Person{
 extends는 하나의 클래스에서 다른 클래스를 상속할때 쓰이는 키워드 이다.
 
 ```javascript
-
 class Person{
-    constructor(name){}
-    head(){}
-    body(){}
+    constructor(name, gender){
+        this.name = name;
+        this.gender = gender;
+    }
+    getName(){
+        console.log('name : ' + this.name);
+    }
+    getGender(){
+        console.log('name : ' + this.gender);
+    }
 }
 
 class Man extends Person{
-    constructor(name){}
-    super.head() // super를 통해 상속된 상위 클래스의 메서드를 호출할 수 있다.
+    constructor(name, gender){
+        super(name, gender);
+    }
+    getName(){
+        super.getName();
+    }
 }
+
+var john = new Man(name, gender);
 ```
+상속된 상위 객체의 메소드(함수)를 호출하려면 super 키워드를 사용하면 된다.
 
 
-
-
+### static class
