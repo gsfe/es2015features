@@ -15,6 +15,8 @@ var man = new Person();
 
 클래스 선언은 함수 선언과는 다르게 호이스팅이 일어나지 않는다. 따라서 선언이 전에 참조하게 된다면 ReferenceError가 나타난다.
 
+constructor 메소드는 객체를 생성하고 초기화하는 기본 메소드 이며 클래스 안에 한 개만 존재할 수 있어 한개 이상일떄 SyntaxError 가 발생한다.
+
 
 ### class 표현식
 
