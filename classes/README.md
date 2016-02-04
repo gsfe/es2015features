@@ -30,36 +30,79 @@ var person = class Person{
 ```
 
 
-### extends를 통한 클래스 상속 & super
+### extends를 통한 클래스 상속
 
 extends는 하나의 클래스에서 다른 클래스를 상속할때 쓰이는 키워드 이다.
 
 ```javascript
 class Person{
-    constructor(name, gender){
+    constructor(name){
         this.name = name;
-        this.gender = gender;
-    }
-    getName(){
-        console.log('name : ' + this.name);
-    }
-    getGender(){
-        console.log('name : ' + this.gender);
     }
 }
 
 class Man extends Person{
-    constructor(name, gender){
-        super(name, gender);
-    }
-    getName(){
-        super.getName();
+    getNames(){
+        console.log('name : ' + this.name);
     }
 }
 
-var john = new Man(name, gender);
+var john = new Man(name);
 ```
+
+
+### super 키워드를 이용한 상위 객체 접근
+
 상속된 상위 객체의 메소드(함수)를 호출하려면 super 키워드를 사용하면 된다.
 
+```javascript
+class Person{
+    constructor(name){
+        var name = name;
+    }
 
-### static class
+    get rtnName(){
+        return this.name;
+    }
+
+    getNames(){
+        console.log('name : ' + this.name);
+    }
+}
+
+class Man extends Person{
+    getNames(){
+        console.log('name : ' + super.rtnName);
+        super.getNames();
+    }
+}
+
+var john = new Man(name);
+```
+
+
+### Static methods
+
+static 키워드는 정적 메소드를 정의 한다. 정적 메소드는 인스턴스화 없이 호출 가능하며 인스턴스화 되면 호출 하지 못한다.
+
+```javascript
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    static distance(a, b) {
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+
+        return Math.sqrt(dx*dx + dy*dy);
+    }
+}
+
+const p1 = new Point(5, 5);
+const p2 = new Point(10, 10);
+
+console.log(Point.distance(p1, p2));  // 7.0710678118654755
+console.log(p1.distance()) // undefined || error
+```
