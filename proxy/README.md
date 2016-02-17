@@ -5,21 +5,22 @@
 
 #### 14가지 기본기능
 
-|----------|---------------|
+|  name  | syntax                |
+|--------|-----------------------|
 | getPrototypeOf | Object.getPrototypeOf(target)  |
 | setPrototypeOf | Object.setPrototypeOf(target, prototype) |
-| defineProperty | Object.setPrototypeOf(target, prototype) |
-| deleteProperty | obj.deleteProperty(target, propertyKey) |
-| getOwnPropertyDescriptors | Object.getOwnPropertyDescriptors(obj) |
-| preventExtensions | Reflect.preventExtensions(target) |
-| isExtensible | Reflect.isExtensible(target) |
-| get | obj.get(target, propertyKey[, receiver]) |
-| set | Reflect.set(target, propertyKey, value[, receiver]) |
-| has | Reflect.has(target, propertyKey) |
-| ownKeys | Reflect.ownKeys(target) |
-| construct | Reflect.ownKeys(target) |
-| apply | Reflect.apply(target, thisArgument, argumentsList) |
-| enumerate | Reflect.enumerate(target) 폐기됨 |
+| defineProperty | Object.defineProperty(target, prop, descriptor) |
+| deleteProperty | Object.deleteProperty(target, propertyKey) |
+| getOwnPropertyDescriptors | Object.getOwnPropertyDescriptors(target) |
+| preventExtensions | Object.preventExtensions(target) |
+| isExtensible | Object.isExtensible(target) |
+| get | Object.get(target, propertyKey[, receiver]) |
+| set | Object.set(target, propertyKey, value[, receiver]) |
+| has | Object.has(target, propertyKey) |
+| ownKeys | Object.ownKeys(target) |
+| construct | Object.construct(target, argumentsList[, newTarget]) |
+| apply | Object.apply(target, thisArgument, argumentsList) |
+| enumerate | Object.enumerate(target) 폐기 |
 
 
 #### Syntax
@@ -45,7 +46,6 @@ let handler = {
       }
     }
 
-    // The default behavior to store the value
     obj[prop] = value;
   }
 };
@@ -56,32 +56,4 @@ person.age = 100;
 console.log(person.age); // 100
 person.age = 'young'; // Throws an exception
 person.age = 300; // Throws an exception
-```
-
-
-
-
-## Reflect
-
-`Reflect`는 내장객체(built-in Objects)로 기본 자바스크립트 메소드( 14가지 메소드 )을 차단( 재정의 )하는 기능을 제공한다. 그 메소드는 `Proxy`의 `handlers` 와 같다. `Reflect`는 함수가 아니여서 `constructor` 가 없다.
-
-
-#### Syntax
-
-```javascript
-let handler = {
-  get:function(obj, key){
-    var val = 'hello ' + Reflect.get(obj, key);
-    return val;    
-  },
-  set:function(obj, prop, value) {
-    var val = 'world' + value;
-    Reflect.set(obj, prop, val);
-  }
-};
-
-let person = new Proxy({}, handler);
-
-person.age = 100;  // world 100
-person.age;        // hello 100;
 ```
