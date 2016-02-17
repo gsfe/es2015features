@@ -5,23 +5,25 @@
 
 ### 14가지 기본기능
 
-| getPrototypeOf | Object.getPrototypeOf(target) |
-| setPrototypeOf | Object.setPrototypeOf(target, prototype) |
-| defineProperty | Object.defineProperty(obj, prop, descriptor) |
-| deleteProperty | obj.deleteProperty(target, propertyKey) |
+| getPrototypeOf            | Object.getPrototypeOf(target) |
+| setPrototypeOf            | Object.setPrototypeOf(target, prototype) |
+| defineProperty            | Object.defineProperty(obj, prop, descriptor) |
+| deleteProperty            | obj.deleteProperty(target, propertyKey) |
 | getOwnPropertyDescriptors | Object.getOwnPropertyDescriptors(obj) |
-| preventExtensions | Reflect.preventExtensions(target) |
-| isExtensible | Reflect.isExtensible(target) |
-| get | obj.get(target, propertyKey[, receiver]) |
-| set | Reflect.set(target, propertyKey, value[, receiver]) |
-| has | Reflect.has(target, propertyKey) |
-| ownKeys | Reflect.ownKeys(target) |
-| construct | Reflect.construct(target, argumentsList[, newTarget]) |
-| apply | Reflect.apply(target, thisArgument, argumentsList) |
-| enumerate | Reflect.enumerate(target) 폐기됨 |
+| preventExtensions         | Reflect.preventExtensions(target) |
+| isExtensible              | Reflect.isExtensible(target) |
+| get                       | obj.get(target, propertyKey[, receiver]) |
+| set                       | Reflect.set(target, propertyKey, value[, receiver]) |
+| has                       | Reflect.has(target, propertyKey) |
+| ownKeys                   | Reflect.ownKeys(target) |
+| construct                 | Reflect.construct(target, argumentsList[, newTarget]) |
+| apply                     | Reflect.apply(target, thisArgument, argumentsList) |
+| enumerate                 | Reflect.enumerate(target) 폐기됨 |
 
 
 ### Syntax
+
+|1|2|3|
 
 ```javascript
 var target = {};
