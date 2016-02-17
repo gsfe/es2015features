@@ -5,7 +5,6 @@
 
 #### 14가지 기본기능
 
-| Tables   | Are           |
 |----------|---------------|
 | getPrototypeOf | Object.getPrototypeOf(target)  |
 | setPrototypeOf | Object.setPrototypeOf(target, prototype) |
