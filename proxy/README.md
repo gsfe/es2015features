@@ -5,20 +5,22 @@
 
 #### 14가지 기본기능
 
-getPrototypeOf : Object.getPrototypeOf(target)
-setPrototypeOf : Object.setPrototypeOf(target, prototype)
-defineProperty : Object.defineProperty(obj, prop, descriptor)
-deleteProperty : obj.deleteProperty(target, propertyKey)
-getOwnPropertyDescriptors : Object.getOwnPropertyDescriptors(obj)
-preventExtensions : Reflect.preventExtensions(target)
-isExtensible : Reflect.isExtensible(target)
-get : obj.get(target, propertyKey[, receiver])
-set : Reflect.set(target, propertyKey, value[, receiver])
-has : Reflect.has(target, propertyKey)
-ownKeys : Reflect.ownKeys(target)
-construct : Reflect.construct(target, argumentsList[, newTarget])
-apply : Reflect.apply(target, thisArgument, argumentsList)
-enumerate : Reflect.enumerate(target) 폐기됨
+| Tables   | Are           |
+|----------|---------------|
+| getPrototypeOf | Object.getPrototypeOf(target)  |
+| setPrototypeOf | Object.setPrototypeOf(target, prototype) |
+| defineProperty | Object.setPrototypeOf(target, prototype) |
+| deleteProperty | obj.deleteProperty(target, propertyKey) |
+| getOwnPropertyDescriptors | Object.getOwnPropertyDescriptors(obj) |
+| preventExtensions | Reflect.preventExtensions(target) |
+| isExtensible | Reflect.isExtensible(target) |
+| get | obj.get(target, propertyKey[, receiver]) |
+| set | Reflect.set(target, propertyKey, value[, receiver]) |
+| has | Reflect.has(target, propertyKey) |
+| ownKeys | Reflect.ownKeys(target) |
+| construct | Reflect.ownKeys(target) |
+| apply | Reflect.apply(target, thisArgument, argumentsList) |
+| enumerate | Reflect.enumerate(target) 폐기됨 |
 
 
 #### Syntax
@@ -56,6 +58,7 @@ console.log(person.age); // 100
 person.age = 'young'; // Throws an exception
 person.age = 300; // Throws an exception
 ```
+
 
 
 
