@@ -5,10 +5,10 @@
 
 #### 14가지 기본기능
 
-| getPrototypeOf    | setPrototypeOf | getOwnPropertyDescriptor | deleteProperty     | construct  |
-|-------------------|----------------|--------------------------|--------------------|------------|
-| preventExtensions | has            | get                      | set                | apply      |
-| isExtensible      | defineProperty | ownKeys                  | enumerate ( 삭제 ) |            |
+| Tables   |      Are      |
+| col 1 is |  left-aligned |
+| col 2 is |    centered   |
+| col 3 is | right-aligned |
 
 getPrototypeOf : Object.getPrototypeOf(target)
 setPrototypeOf : Object.setPrototypeOf(target, prototype)
