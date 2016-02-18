@@ -31,9 +31,9 @@ console.log(genFunc.next());
 
 
 ### yield*
-yield* 표현은 다른 generator 또는 반복자 객체에 위임하는데 사용된다.
-피연산자를 반복하고 반환되는 값을 또 yield 하게 되며 yield* 표현 자체의 값은 반복자가 종료될 때 반환되는 값(value)이다.
-yield* 표현은 배열, 문자열 또는 arguments 와 같이 다른 반복 가능한 객체도 yield 할 수 있다.
+`yield*` 표현은 다른 generator 또는 반복자 객체에 위임하는데 사용된다.
+피연산자를 반복하고 반환되는 값을 또 yield 하게 되며 `yield*` 표현 자체의 값은 반복자가 종료될 때 반환되는 값(value)이다.
+`yield*` 표현은 배열, 문자열 또는 arguments 와 같이 다른 반복 가능한 객체도 `yield` 할 수 있다.
 
 ```javascript
 function* anotherGenerator (i) {
@@ -63,7 +63,7 @@ console.log(gen.next().value); // 20
 [yield* 예제](http://jsbin.com/yuyote/edit?js,console)
 
 
-yield* 는 구문이 아닌 표현이기 때문에 값으로 평가되며 yield* 표현 자체의 값은 반복자가 종료될 때(done -> true) 반환되는 값이다.
+`yield*` 는 구문이 아닌 표현이기 때문에 값으로 평가되며 `yield*` 표현 자체의 값은 반복자가 종료될 때(done -> true) 반환되는 값이다.
 
 ```javascript
 function* g4() {
@@ -94,7 +94,7 @@ console.log(result);
 
 ### 생성자로 사용될 수 없는 Generator
 
-Generator 는 생성자로서 사용될 수 없다.
+`Generator` 는 생성자로서 사용될 수 없다.
 
 ```javascript
 function* f() {}
@@ -104,7 +104,7 @@ var obj = new f; // throws "TypeError: f is not a constructor"
 
 
 ### 익명 함수로 선언할 수 있는 Generator
-Generator 를 익명 함수 형태로 선언하는 것은 일반적인 함수와 동일한 방식으로 선언한다.
+`Generator` 를 익명 함수 형태로 선언하는 것은 일반적인 함수와 동일한 방식으로 선언한다.
 
 ```javascript
 var square = function* (y) {
@@ -114,7 +114,7 @@ var square = function* (y) {
 
 ### Generator 의 응용
 
-Generator 와 Promise 를 조합하면 비동기 요청의 흐름 제어를 보다 효과적으로 할 수 있다.
+`Generator` 와 `Promise` 를 조합하면 비동기 요청의 흐름 제어를 보다 효과적으로 할 수 있다.
 
 ```javascript
 //  generic asynchronous control-flow driver
@@ -131,8 +131,7 @@ function async (proc, ...params) {
 			}
 			if (result.done)
 				resolve(result.value)
-			else if (   typeof result.value	  === "object"
-					 && typeof result.value.then === "function")
+			else if (typeof result.value === "object" && typeof result.value.then === "function")
 				result.value.then((value) => {
 					loop(value)
 				}, (err) => {
@@ -175,5 +174,17 @@ co(function* () {
 })
 .catch(function (err) {
 	console.error(err.stack);
+});
+```
+
+모든 비동기 함수를 Promise 로 작성하게 되면 아래와 같이 비동기 요청을 동기적으로 작성할 수 있게 되어 가독성이 높아진다. 이러한 비동기 요청에 대한 방식은 ES7의 async/await 으로 이어지게 되고 실제로도 유사한 구조를 갖는다.
+
+```javascript
+co(function* () {
+	var username = yield coPrompt('username: ');
+	var password = yield coPrompt.password('password: ');
+
+	console.log(chalk.green.bold('사용자: ') + username);
+	console.log(chalk.blue.bold('패스워드: ') + password);
 });
 ```
