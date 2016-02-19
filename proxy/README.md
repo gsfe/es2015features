@@ -1,11 +1,11 @@
 ## Proxy
 
-객체(Object)의 14가지 기본적인 기능(속성조회`getter`/할당`setter`, 나열... )을 handler를 이용하여 재정의 하는 기능이다.
+객체(Object)의 13가지 기본적인 기능(속성조회`getter`/할당`setter`, 나열... )을 handler를 이용하여 재정의 하는 기능이다.
 
 
-#### 14가지 기본기능
+#### 13가지 기본기능
 
-|  name  | syntax                |
+|  name  |         syntax        |
 |--------|-----------------------|
 | getPrototypeOf | Object.getPrototypeOf(target)  |
 | setPrototypeOf | Object.setPrototypeOf(target, prototype) |
@@ -20,7 +20,6 @@
 | ownKeys | Object.ownKeys(target) |
 | construct | Object.construct(target, argumentsList[, newTarget]) |
 | apply | Object.apply(target, thisArgument, argumentsList) |
-| enumerate | Object.enumerate(target) 폐기 |
 
 
 #### Syntax
@@ -35,25 +34,31 @@ var proxy = new Proxy(target, handler);
 #### Examples
 
 ```javascript
-let handler = {
-  set: function(obj, prop, value) {
-    if (prop === 'age') {
-      if (!Number.isInteger(value)) {
-        throw new TypeError('The age is not an integer');
-      }
-      if (value > 200) {
-        throw new RangeError('The age seems invalid');
-      }
-    }
-
+var target = function(){}
+var handler = {
+  get:function(obj, prop){
+    return 'get : ' + obj[prop];
+  },
+  set:function(obj, prop, value, receiver){
     obj[prop] = value;
+    console.log(obj, prop, value, receiver);
+    return true;
+  },
+  apply:function(target, thisArgument, argumentsList){
+    console.log('apply : ' + argumentsList);
+  },
+  has:function(target, propertyKey){
+    console.log('has', target, propertyKey);
+  },
+  deleteProperty:function(target, propertyKey){
+    console.log('deleteProperty', target, propertyKey);
+    return delete target['propertyKey'];
+  },
+  construct:function(target, argumentsList){
+    console.log('construct', target, argumentsList);
+    return target;
   }
 };
 
-let person = new Proxy({}, handler);
-
-person.age = 100;
-console.log(person.age); // 100
-person.age = 'young'; // Throws an exception
-person.age = 300; // Throws an exception
+var proxy = new Proxy(target, handler);
 ```
