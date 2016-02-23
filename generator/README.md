@@ -26,7 +26,7 @@ console.log(genFunc.next());
 console.log(genFunc.next());
 ```
 
-[기본구조](http://jsbin.com/puluvaxidu/edit?js,console)
+[기본구조](http://jsbin.com/rivaxu/edit?js,console)
 
 
 
