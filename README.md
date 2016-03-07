@@ -17,3 +17,5 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [ES6 Overview in 350 Bullet Points](https://github.com/bevacqua/es6/)
 - [egghead.io ES6 Lessons](https://egghead.io/technologies/es6/)
 - [Understanding ES6](https://leanpub.com/understandinges6/read/)
+- [ES6 치트시트](https://github.com/DrkSephy/es6-cheatsheet/blob/master/README_ko.md)
+
