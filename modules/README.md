@@ -104,6 +104,12 @@ console.log('sum result: %d', mathDefault.sum(mathDefault.pi, 20));
 ```
 
 
+모듈을 통째로 가져와서 해당 위치에서 실행하고 싶다면 아래와 같이 별명없이 `import` 만 사용한다.
+```javascript
+//파일을 가져와서 그대로 해당 위치에서 실행한다.
+import 'underscore';
+```
+
 마지막으로 기본값과 다른 멤버들을 동시에 가져오고 싶다면 아래와 같이 사용할 수 있다.
 
 ```javascript
