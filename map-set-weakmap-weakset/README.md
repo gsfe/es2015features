@@ -3,7 +3,7 @@
 `Key`와 `Value`를 가지는 객체 이다. `get`과 `set` 으로 데이터를 참조/할당 할 수 있고 `{}` 및 `function(){}`을 key값을 사용 할 수 있지만 인스턴스 객체가 되어야 value에 접근할 수 있다.
 
 ```javascript
-var m = new Map();
+var m = new Map(); 
 var keyObj = {};
 var keyFunc = function(){};
 
