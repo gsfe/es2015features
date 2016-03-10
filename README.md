@@ -10,6 +10,7 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [05. Generator](./generator)
 - [06. Proxy](./proxy)
 - [07. Enhanced Object Literals](./enhanced-object-literals)
+- [08. Map_Set_WeakMap_WeakSet](./map-set-weakmap-weakset)
 
 #### ES2015 를 이해하는데 도움이 되는 링크들
 - [ECMAScript 6 New Features: Overview & Comparison](http://es6-features.org/)
@@ -18,4 +19,5 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [egghead.io ES6 Lessons](https://egghead.io/technologies/es6/)
 - [Understanding ES6](https://leanpub.com/understandinges6/read/)
 - [ES6 치트시트](https://github.com/DrkSephy/es6-cheatsheet/blob/master/README_ko.md)
+- [Symbol]에 대한 간단한 설명 (http://www.bsidesoft.com/?p=2069)
 
