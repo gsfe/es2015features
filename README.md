@@ -12,7 +12,7 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [07. Enhanced Object Literals](./enhanced-object-literals)
 - [08. Parameter(Default, Rest, Spread)](./parameter)
 - [09. Destructuring](./destructuring)
-- [10. Map_Set_WeakMap_WeakSet](./map-set-weakmap-weakset)
+- [10. Map, Set, WeakMap, WeakSet](./map-set-weakmap-weakset)
 
 #### ES2015 를 이해하는데 도움이 되는 링크들
 - [ECMAScript 6 New Features: Overview & Comparison](http://es6-features.org/)
