@@ -58,14 +58,14 @@ ES6에 추가된 새로운 형태의 String 표기법 이다. 이는 기존의 S
 // "string text" + expression + "string text"
 ```
 
-Template String은 보통의 문자열과는 달리 Multi-line를 (새로운 줄`newline`과 들여쓰기를 포함한, template string 내의 모든 `whitespace`는 그대로 포함되어 출력 ) 제공하며, Markdown에서 사용 할 경우 여러개의 backtick을 넣어 표현한다.
+Template String은 보통의 문자열과는 달리 Multi-line를 (새로운 줄`newline`과 들여쓰기를 포함한, template string 내의 모든 `whitespace`는 그대로 포함되어 출력 ) 제공하며, Template을 그대로 출력해야하는 경우 `\` 추가한다.
 
 ```javascript
 var message = `<h1>Watch out!</h1>
                <p>Unauthorized hockeying can result in penalties
                of up to ${maxPenalty} minutes.</p>`;
 
-To display a message, write ``alert(`hello world!`)``.
+var message = `\`To display a message, write alert(\${hello})\``.
 ```
 
 
@@ -86,13 +86,13 @@ function tag(strings, ...values) {
   return "Bazinga!";
 }
 
-let message = tag``Hello ${ a + b } world ${ a * b }``;
+let message = tag`\`Hello ${ a + b } world ${ a * b }\``;
 console.log(message); // "Bazinga!"
 
 
 
 var bonk = {sender:"Hacker Steve <script>alert('xss');</script>"};
-var message = SaferHTML``<p>${bonk.sender} has sent you a bonk.</p>``;
+var message = SaferHTML`\`<p>${bonk.sender} has sent you a bonk.</p>\``;
 
 function SaferHTML(templateData) {
   var s = templateData[0];
