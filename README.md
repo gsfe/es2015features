@@ -14,6 +14,7 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [09. Destructuring](./destructuring)
 - [10. Map, Set, WeakMap, WeakSet](./map-set-weakmap-weakset)
 - [11. let, const, template](./let-const-template)
+- [12. Array.of, Array.from, for..of](./array-of-array-from-for-of)
 
 #### ES2015 를 이해하는데 도움이 되는 링크들
 - [ECMAScript 6 New Features: Overview & Comparison](http://es6-features.org/)
@@ -23,4 +24,3 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [Understanding ES6](https://leanpub.com/understandinges6/read/)
 - [ES6 치트시트](https://github.com/DrkSephy/es6-cheatsheet/blob/master/README_ko.md)
 - [Symbol 에 대한 간단한 설명](http://www.bsidesoft.com/?p=2069)
-
