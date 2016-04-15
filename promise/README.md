@@ -24,7 +24,7 @@ square(5)
 	.then(result => console.log('결과는', result));
 ```
 
-[기본 예제](http://jsbin.com/nidado/edit?js,console)
+[기본 예제](http://jsbin.com/nidado/9/edit?js,console)
 
 위의 예제에서는 비동기 작업을 묘사하기 위해 `setTimeout` 을 사용했다. 이 부분은 Ajax 나 다른 비동기 작업이 위치할 수도 있고 또 동기 작업이 될 수도 있다.
 Promise 생성자 함수로 생성된 `Promise` 인스턴스에는 정상적으로 비동기작업이 완료되었을 때 호출하는 `then` 이라는 메서드가 존재한다.
@@ -76,9 +76,12 @@ settledPromise
 
 ```
 
-[Promise 의 상태 예제](http://jsbin.com/yonuqo/edit?js,console)
+[Promise 의 상태 예제](http://jsbin.com/yonuqo/6/edit?js,console)
 
 50% 의 확률로 `Promise` 는 성공하거나 실패하는데, 한번 성공한 `Promise` 는 다시 실행해도 여전히 같은 값을 가지고 있는 것을 볼 수 있다.
+Promise 의 이러한 특성을 활용해서 같은 비동기 작업이 여러번 실행되는 것을 방지할 수 있다. 또 이러한 특성으로 인해 호출 시마다 비동기 작업이 실행되어야 한다면 아래의 예제와 같이 새로운 Promise 를 리턴하는 형태로 사용하게 된다.
+
+[새로운 Promise 를 리턴하는 예제](http://jsbin.com/fajiqi/1/edit?js,console)
 
 
 ### catch 메서드
@@ -101,7 +104,7 @@ function getUsername (id) {
 }
 
 getUsername('test')
-	.then(username => console.log('%s 님 안녕하세요!', username), error => console.error(error.message));
+	.then(username => console.log(`${username} 님 안녕하세요!'`), error => console.error(error.message));
 ```
 
 위의 코드는 아래와 완전히 동일하게 동작한다.
@@ -122,11 +125,11 @@ function getUsername (id) {
 }
 
 getUsername('test')
-	.then(username => console.log('%s 님 안녕하세요!', username))
+	.then(username => console.log(`${username} 님 안녕하세요!'`))
 	.catch(error => console.error(error.message));
 ```
 
-[catch 메서드 예제](http://jsbin.com/hozeqo/edit?js,console)
+[catch 메서드 예제](http://jsbin.com/hozeqo/4/edit?js,console)
 
 
 ### Promise 체이닝
@@ -208,7 +211,7 @@ Promise.all([square(5), square(7), square(9)])
 	.then(result => console.log(result));
 ```
 
-[Promise.all 예제](http://jsbin.com/kohici/edit?js,console)
+[Promise.all 예제](http://jsbin.com/kohici/3/edit?js,console)
 
 3 개의 비동기 작업의 결과를 받아서 이들의 합을 구하고 이어서 결과를 출력하는 형태이다. Promise 부분만 보면 전체적으로 어떻게 동작할 지 모두 예측이 가능한 가시성 있는 코드가 쉽게 작성되었다.
 
