@@ -71,6 +71,41 @@ for(var [key, value] of s.entries()){
 
 Object만 key로 허용하고 value는 임의의 값을 허용하는 key/value 요소의 집합이다.
 
+|  method  |         return value        |
+|----------|-----------------------------|
+|   get    | WeakMap에서 지정된 요소를 반환합니다. |
+|  delete  | WeakMap에서 지정된 요소를 제거합니다. |
+|   set    | WeakMap에 새 요소를 추가합니다. |
+|   has    | WeakMap이 지정된 요소를 포함하는 경우 true를 반환합니다. |
+|  clear   | WeakMap에서 요소를 모두 제거합니다. |
+
+```javascript
+var dog = {
+    breed: "yorkie"
+}
+
+var cat = {
+    breed: "burmese"
+}
+
+var wm = new WeakMap();
+wm.set(dog, "fido");
+wm.set(cat, "pepper");
+
+console.log(wm.get(dog));
+console.log(wm.get(cat));
+dog = null;
+console.log(wm.get(dog));
+```
+[JSBin 예제](http://jsbin.com/getofajifi/edit?js,console)
+
+
+#### 왜 WeakMap을 사용하지? 
+
+- 객체의 사적인 정보를 저장하기 위해
+- 상세 구현 내용을 숨기기 위해 
+- ["Hiding Implementation Details with ECMAScript 6 WeakMaps"](http://fitzgeraldnick.com/weblog/53/)
+
 ```javascript
 let privates = new WeakMap();
 class Public {
@@ -107,16 +142,33 @@ console.log(public2.data);
 [JSBin 예제](http://jsbin.com/gimatejile/edit?js,console)
 
 
-#### 왜 WeakMap을 사용하지? 
-
-- 객체의 사적인 정보를 저장하기 위해
-- 상세 구현 내용을 숨기기 위해 
-- ["Hiding Implementation Details with ECMAScript 6 WeakMaps"](http://fitzgeraldnick.com/weblog/53/)
-
 
 ### WeakSet
 
 Object만 값으로 허용하는 value 요소의 집합이다.
+
+|  method  |         return value        |
+|----------|-----------------------------|
+|   add    | 집합에 요소를 추가합니다. |
+|  delete  | 집합에서 지정된 요소를 제거합니다. |
+|    has   | 집합에 지정된 요소가 포함된 경우 true를 반환합니다. |
+
+```javascript
+var ws = new WeakSet();
+var str = new String("Thomas Jefferson");
+var num = new Number(1776);
+
+ws.add(str);
+ws.add(num);
+
+console.log(ws.has(str));
+console.log(ws.has(num));
+
+ws.delete(str);
+console.log(ws.has(str));
+```
+[JSBin 예제](http://jsbin.com/huvatahuhe/edit?js,console)
+
 
 #### Set과 가장 큰 차이점은?
 - 객체의 집합이며 객체만 저장할 수 있다. 
