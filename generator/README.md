@@ -26,7 +26,7 @@ console.log(genFunc.next());
 console.log(genFunc.next());
 ```
 
-[기본구조](http://jsbin.com/rivaxu/edit?js,console)
+[기본구조](http://jsbin.com/rivaxu/2/edit?js,console)
 
 
 
@@ -60,7 +60,7 @@ console.log(gen.next().value); // 13
 console.log(gen.next().value); // 20
 ```
 
-[yield* 예제](http://jsbin.com/yuyote/edit?js,console)
+[yield* 예제](http://jsbin.com/yuyote/2/edit?js,console)
 
 
 `yield*` 는 구문이 아닌 표현이기 때문에 값으로 평가되며 `yield*` 표현 자체의 값은 반복자가 종료될 때(done -> true) 반환되는 값이다.
@@ -82,11 +82,12 @@ var iterator = g5();
 console.log(iterator.next()); // { value: 1, done: false }
 console.log(iterator.next()); // { value: 2, done: false }
 console.log(iterator.next()); // { value: 3, done: false }
-console.log(iterator.next()); // { value: undefined, done: true }, g4() 는 여기서 { value: "foo", done: true }를 반환합니다
+console.log(iterator.next()); // { value: undefined, done: true }
+//g4() 는 여기서 { value: "foo", done: true }를 반환한다!!
 
-console.log(result);
+console.log(result); // foo
 ```
-[yield*의 결과값 예제](http://jsbin.com/logerak/edit?js,console)
+[yield*의 결과값 예제](http://jsbin.com/logerak/2/edit?js,console)
 
 위 예제와 달리 특별히 return 을 지정하지 않을 경우 undefined 가 done 상태에서 값으로 리턴되므로 result 에 undefined 들어가게 된다.
 
@@ -117,74 +118,78 @@ var square = function* (y) {
 `Generator` 와 `Promise` 를 조합하면 비동기 요청의 흐름 제어를 보다 효과적으로 할 수 있다.
 
 ```javascript
-//  generic asynchronous control-flow driver
-function async (proc, ...params) {
-	var iterator = proc(...params)
-	return new Promise((resolve, reject) => {
-		let loop = (value) => {
-			let result
-			try {
-				result = iterator.next(value)
-			}
-			catch (err) {
-				reject(err)
-			}
-			if (result.done)
-				resolve(result.value)
-			else if (typeof result.value === "object" && typeof result.value.then === "function")
-				result.value.then((value) => {
-					loop(value)
-				}, (err) => {
-					reject(err)
-				})
-			else
-				loop(result.value)
-		}
-		loop()
-	})
-}
-
-//  application-specific asynchronous builder
+//임의의 비동기 작업을 시뮬레이션하기 위한 함수
 function makeAsync (text, after) {
 	return new Promise((resolve, reject) => {
-		setTimeout(() => resolve(text), after)
-	})
+		setTimeout(() => resolve(text), after);
+	});
 }
 
-//  application-specific asynchronous procedure
+//제네레이터와 프로미스를 활용한 비동기 흐름제어
+function async (proc, ...params) {
+	//파라메터로 전달받은 Generator 함수의 iterator 생성
+	const iterator = proc(...params);
+
+	return new Promise((resolve, reject) => {
+		(function asyncFlow (value) {
+			//다음 yield expression 까지 실행한다.
+			//처음에는 next 메서드에 전달되는 인자가 의미가 없지만,
+			//두번째 실행부터는 받은 인자를 yield의 결과값으로 반환한다.
+			let result = iterator.next(value);
+
+			//Generator 함수의 실행이 완전히 완료되었다면,
+			if (result.done) {
+				//최종 결과값을 체인에 전달 (Generator 함수에 return 이 없다면 undefined 가 전달된다)
+				resolve(result.value);
+			}
+			//아직 Generator 함수의 실행이 완료되지 않았고, result.value 가 Promise 객체인 경우,
+			else if (result.value instanceof Promise) {
+				//Promise를 실행한 결과를 다시 asyncFlow에 전달
+				result.value.then(asyncFlow).catch(reject);
+			}
+			//아직 Generator 함수의 실행이 완료되지 않았고, result 가 Promise 객체가 아닌경우
+			else {
+				asyncFlow(result.value);
+			}
+		}) ();
+	});
+}
+
+
 async(function* (greeting) {
-	let foo = yield makeAsync("foo", 300)
-	let bar = yield makeAsync("bar", 200)
-	let baz = yield makeAsync("baz", 100)
-	return `${greeting} ${foo} ${bar} ${baz}`
-}, "Hello").then((msg) => {
-	console.log("RESULT:", msg) // "Hello foo bar baz"
-});
+	let foo = yield makeAsync("foo 홍길동", 300);
+	let bar = yield makeAsync("bar 이순신", 200);
+	let baz = yield makeAsync("baz 장보고", 100);
+
+	return `${greeting} ${foo} ${bar} ${baz}`;
+}, "Hello")
+.then(console.log)
+.catch(console.error);
 ```
+[Generator 와 Promise 를 활용한 비동기 흐름 제어](http://jsbin.com/qumiva/2/edit?js,console)
 
 위와 같은 방식의 구현체로 가장 유명한 라이브러리는 TJ Holowaychuk이 만든 [co](https://github.com/tj/co) 이다.
 
-```javascript
-co(function* () {
-	var result = yield Promise.resolve(true);
-	return result;
-})
-.then(function (value) {
-	console.log(value);
-})
-.catch(function (err) {
-	console.error(err.stack);
-});
-```
-
-모든 비동기 함수를 Promise 로 작성하게 되면 아래와 같이 비동기 요청을 동기적으로 작성할 수 있게 되어 가독성이 높아진다. 이러한 비동기 요청에 대한 방식은 ES7의 async/await 으로 이어지게 되고 실제로도 유사한 구조를 갖는다.
+모든 비동기 함수를 Promise 로 작성하게 되면 아래와 같이 비동기 요청을 동기적으로 작성할 수 있게 되어 가독성이 높아진다.
 
 ```javascript
 co(function* () {
 	var username = yield coPrompt('username: ');
 	var password = yield coPrompt.password('password: ');
 
-	console.log(chalk.green.bold('사용자: ') + username);
-	console.log(chalk.blue.bold('패스워드: ') + password);
+	console.log('사용자: ' + username);
+	console.log('패스워드: ' + password);
 });
+```
+이러한 비동기 요청에 대한 방식은 ES7의 async/await 으로 이어지게 되고 실제로도 유사한 구조를 갖는다.
+(아직 ES7은 확정적이지 않기 때문에 아래의 문법은 달라질 수 있다)
+
+```javascript
+async function login () {
+	var username = await prompt('username: ');
+	var password = await prompt.password('password: ');
+
+	console.log('사용자: ' + username);
+	console.log('패스워드: ' + password);
+}
 ```
