@@ -51,8 +51,8 @@ Promise 생성자 함수로 생성된 `Promise` 인스턴스에는 정상적으�
 var settledPromise = new Promise((resolve, reject) => {
 
 	// 50프로 확률로 resolve
-	if (Boolean(Date.now() % 2)) {
-		resolve("프로미스 성공!");
+	if (Math.round(Math.random())) {
+		resolve("프로미스 성공!");  
 	}
 	else {
 		reject(Error("프로미스 실패.."));
@@ -73,7 +73,6 @@ settledPromise
 settledPromise
 	.then(result => console.log(result))
 	.catch(error => console.error(error.message));
-
 ```
 
 [Promise 의 상태 예제](http://jsbin.com/yonuqo/6/edit?js,console)
@@ -83,6 +82,35 @@ Promise 의 이러한 특성을 활용해서 같은 비동기 작업이 여러�
 
 [새로운 Promise 를 리턴하는 예제](http://jsbin.com/fajiqi/1/edit?js,console)
 
+```javascript
+var newPromise = function () {
+	return new Promise((resolve, reject) => {
+
+		// 50프로 확률로 resolve
+		if (Math.round(Math.random())) {
+			resolve("프로미스 성공!");  
+		}
+		else {
+			reject(Error("프로미스 실패.."));
+		}
+	});
+};
+
+//첫 실행
+newPromise()
+	.then(result => console.log(result))
+	.catch(error => console.error(error.message));
+
+//두번째 실행
+newPromise()
+	.then(result => console.log(result))
+	.catch(error => console.error(error.message));
+
+//세번째 실행
+newPromise()
+	.then(result => console.log(result))
+	.catch(error => console.error(error.message));
+```
 
 ### catch 메서드
 
