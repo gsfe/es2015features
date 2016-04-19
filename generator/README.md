@@ -170,14 +170,26 @@ async(function* (greeting) {
 
 위와 같은 방식의 구현체로 가장 유명한 라이브러리는 TJ Holowaychuk이 만든 [co](https://github.com/tj/co) 이다.
 
-모든 비동기 함수를 Promise 로 작성하게 되면 아래와 같이 비동기 요청을 동기적으로 작성할 수 있게 되어 가독성이 높아진다. 이러한 비동기 요청에 대한 방식은 ES7의 async/await 으로 이어지게 되고 실제로도 유사한 구조를 갖는다.
+모든 비동기 함수를 Promise 로 작성하게 되면 아래와 같이 비동기 요청을 동기적으로 작성할 수 있게 되어 가독성이 높아진다.
 
 ```javascript
 co(function* () {
 	var username = yield coPrompt('username: ');
 	var password = yield coPrompt.password('password: ');
 
-	console.log(chalk.green.bold('사용자: ') + username);
-	console.log(chalk.blue.bold('패스워드: ') + password);
+	console.log('사용자: ' + username);
+	console.log('패스워드: ' + password);
 });
+```
+이러한 비동기 요청에 대한 방식은 ES7의 async/await 으로 이어지게 되고 실제로도 유사한 구조를 갖는다.
+(아직 ES7은 확정적이지 않기 때문에 아래의 문법은 달라질 수 있다)
+
+```javascript
+async function login () {
+	var username = await prompt('username: ');
+	var password = await prompt.password('password: ');
+
+	console.log('사용자: ' + username);
+	console.log('패스워드: ' + password);
+}
 ```
