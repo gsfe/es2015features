@@ -19,7 +19,7 @@ m.get( {} || function(){} ) === undefined;
 m.size === 2;
 m.has(key1) === true;
 ```
-
+[JSBin 예제](http://jsbin.com/ronewamuko/edit?js,console)
 
 ## Set
 
@@ -31,29 +31,38 @@ s.add('good').add('bad').add('good');   // Set {'good', 'bad'}
 s.size === 2;
 s.has('good');
 ```
-변수 `luke`의 anakin을 출력하려면 `luke.father` 또는 `luke['father']`이 된다. 하지만 해당 key명을 가지고 value에 접근이 가능하다.
+[JSBin 예제](http://jsbin.com/nahetelacu/edit?js,console)
+
 
 
 ## (Map || Set) Iterator
 
-`Map`과 `Set`은 MapIterator와 SetIterator를 각각 반환하여 `for-of`로 객체의 `key/value` 참조할 수 있다.
+`Map`과 `Set`은 Iterator를 각각 반환하여 `for-of`로 객체의 `key/value` 참조할 수 있다.
 
 |  method  |         return value        |
 |----------|-----------------------------|
 |   keys   | {"key1", "key2", ...} |
 |  values  | {"value1", "value2", ...} |
 |  entries | {["key1", "value1"], ["key2", "value2"], ...} |
-단 Set의 `entries` 메소드는 SetIterator를 반환 하나 key값이 없는 특성상 value 값이 key값으로 반환된다.
+단 Set의 `entries` 메소드는 Iterator를 반환 하나 key값이 없는 특성상 value 값이 key값으로 반환된다.
 
 ```javascript
 var m = new Map();
 var s = new Set();
-m.set('key', 'value');
-s.add('value1').add('value2');
+m.set('key1', 'key value1').set('key2', 'key value2');
+s.add('set value1').add('set value2');
 
-m.keys();   MapIterator {"key"}
-s.keys();   SetIterator {"value1", "value2"}
+
+//entries Iterator
+for(var [key, value] of m.entries()){
+  console.log('key : '+key+', value : '+value);
+}
+for(var [key, value] of s.entries()){
+  console.log('key : '+key+', value : '+value);
+}
+
 ```
+[JSBin 예제](http://jsbin.com/wekaxaqipu/edit?js,console)
 
 
 ## WeakMap || WeakSet
@@ -63,40 +72,46 @@ s.keys();   SetIterator {"value1", "value2"}
 Object만 key로 허용하고 value는 임의의 값을 허용하는 key/value 요소의 집합이다.
 
 ```javascript
-const privates = new WeakMap();
-function Public() {
-  const defaults = {
-    aaa:0,
-    bbb:0
-  };
-  privates.set(this, defaults);
+let privates = new WeakMap();
+class Public {
+  constructor(){
+    this.defaults = {
+      aaa:0,
+      bbb:0
+    };
+    
+    this.aaa = {};
+    privates.set(this.aaa, this.defaults);
+  }
+  
+  get data(){
+    let me = privates.get(this);
+    return me;
+  }
+  
+  set data(obj){
+    privates.set(this, obj);
+  }
 }
 
-Public.prototype.setData = function (obj) {
-  privates.set(this, obj);
-}
+let public1 = new Public();
+let public2 = new Public();
 
-Public.prototype.getData = function () {
-  const me = privates.get(this);
-  return me;
-};
+public1.data = {aaa:123, bbb:456};
+public2.data = {aaa:456, bbb:789};
 
-var aaa = new Public();
-var bbb = new Public();
-
-aaa.setData({aaa:123, bbb:456});
-bbb.setData({aaa:456, bbb:789});
-
-console.log(aaa.getData());
-console.log(bbb.getData());
-console.log(privates);
+console.log(privates.get(public1.aaa));
+console.log(public1.data);
+console.log(public2.data);
 ```
+[JSBin 예제](http://jsbin.com/gimatejile/edit?js,console)
+
 
 #### 왜 WeakMap을 사용하지? 
 
 - 객체의 사적인 정보를 저장하기 위해
 - 상세 구현 내용을 숨기기 위해 
-- "Hiding Implementation Details with ECMAScript 6 WeakMaps"(http://fitzgeraldnick.com/weblog/53/)
+- ["Hiding Implementation Details with ECMAScript 6 WeakMaps"](http://fitzgeraldnick.com/weblog/53/)
 
 
 ### WeakSet
