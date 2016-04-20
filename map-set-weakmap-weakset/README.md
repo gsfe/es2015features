@@ -2,6 +2,14 @@
 
 `Key`와 `Value`를 가지는 객체 이다. `get`과 `set` 으로 데이터를 참조/할당 할 수 있고 `{}` 및 `function(){}`을 key값을 사용 할 수 있지만 인스턴스 객체가 되어야 value에 접근할 수 있다.
 
+|  method  |         return value        |
+|----------|-----------------------------|
+|   get    | 지정된 key로 value를 반환합니다. |
+|  delete  | 지정된 key, value를 제거합니다. |
+|   set    | 새 key, value를 추가합니다. |
+|   has    | 지정된 key값이 있는 경우 true를 반환합니다. |
+|  clear   | 요소를 모두 제거합니다. |
+
 ```javascript
 var m = new Map(); 
 var keyObj = {};
@@ -21,9 +29,18 @@ m.has(key1) === true;
 ```
 [JSBin 예제](http://jsbin.com/ronewamuko/edit?js,console)
 
+
+
 ## Set
 
 `Value` 값을 가지는 객체이다. `add`로 값을 할당하고 중복되는 값이 있을 땐 새 값이 이전 값을 대체한다.
+
+|  method  |         return value        |
+|----------|-----------------------------|
+|   add    | 요소를 추가합니다. |
+|  delete  | 지정된 요소를 제거합니다. |
+|   has    | 지정된 요소가 포함된 경우 true를 반환합니다. |
+|  clear   | 요소를 모두 제거합니다. |
 
 ```javascript
 var s = new Set();
@@ -44,7 +61,8 @@ s.has('good');
 |   keys   | {"key1", "key2", ...} |
 |  values  | {"value1", "value2", ...} |
 |  entries | {["key1", "value1"], ["key2", "value2"], ...} |
-단 Set의 `entries` 메소드는 Iterator를 반환 하나 key값이 없는 특성상 value 값이 key값으로 반환된다.
+
+단 Set의 `keys`와 `entries` Iterator는 key값이 없는 특성상 value 값이 key값으로 반환된다.
 
 ```javascript
 var m = new Map();
@@ -52,32 +70,29 @@ var s = new Set();
 m.set('key1', 'key value1').set('key2', 'key value2');
 s.add('set value1').add('set value2');
 
-
 //entries Iterator
 for(var [key, value] of m.entries()){
-  console.log('key : '+key+', value : '+value);
+    console.log('key : '+key+', value : '+value);
 }
 for(var [key, value] of s.entries()){
-  console.log('key : '+key+', value : '+value);
+    console.log('key : '+key+', value : '+value);
 }
-
 ```
 [JSBin 예제](http://jsbin.com/wekaxaqipu/edit?js,console)
 
 
+
 ## WeakMap || WeakSet
+
+### Garbage Collection
+
+메모리 할당을 추적하고 할당된 메모리가 더 이상 필요 없어졌을 때 해제하는 작업이다. 하지만 필요없어진 모든 메모리를 해제하는건 아니다.
+
+
 
 ### WeakMap
 
 Object만 key로 허용하고 value는 임의의 값을 허용하는 key/value 요소의 집합이다.
-
-|  method  |         return value        |
-|----------|-----------------------------|
-|   get    | WeakMap에서 지정된 요소를 반환합니다. |
-|  delete  | WeakMap에서 지정된 요소를 제거합니다. |
-|   set    | WeakMap에 새 요소를 추가합니다. |
-|   has    | WeakMap이 지정된 요소를 포함하는 경우 true를 반환합니다. |
-|  clear   | WeakMap에서 요소를 모두 제거합니다. |
 
 ```javascript
 var dog = {
@@ -100,6 +115,7 @@ console.log(wm.get(dog));
 [JSBin 예제](http://jsbin.com/getofajifi/edit?js,console)
 
 
+
 #### 왜 WeakMap을 사용하지? 
 
 - 객체의 사적인 정보를 저장하기 위해
@@ -109,24 +125,24 @@ console.log(wm.get(dog));
 ```javascript
 let privates = new WeakMap();
 class Public {
-  constructor(){
-    this.defaults = {
-      aaa:0,
-      bbb:0
-    };
+    constructor(){
+      this.defaults = {
+          aaa:0,
+          bbb:0
+      }
     
-    this.aaa = {};
-    privates.set(this.aaa, this.defaults);
-  }
+        this.aaa = {};
+        privates.set(this.aaa, this.defaults);
+    }
   
-  get data(){
-    let me = privates.get(this);
-    return me;
-  }
+    get data(){
+        let me = privates.get(this);
+        return me;
+    }
   
-  set data(obj){
-    privates.set(this, obj);
-  }
+    set data(obj){
+        privates.set(this, obj);
+    }
 }
 
 let public1 = new Public();
@@ -146,12 +162,6 @@ console.log(public2.data);
 ### WeakSet
 
 Object만 값으로 허용하는 value 요소의 집합이다.
-
-|  method  |         return value        |
-|----------|-----------------------------|
-|   add    | 집합에 요소를 추가합니다. |
-|  delete  | 집합에서 지정된 요소를 제거합니다. |
-|    has   | 집합에 지정된 요소가 포함된 경우 true를 반환합니다. |
 
 ```javascript
 var ws = new WeakSet();
@@ -174,4 +184,5 @@ console.log(ws.has(str));
 - 객체의 집합이며 객체만 저장할 수 있다. 
 - 특정 type의 값을 저장할 수는 없다.
 - WeakSet내의 객체에 대한 참조는 약하게 연결이 되어 있어 WeakSet내에 저장되어 있는 객체에 대한 참조가 없게되면 garbage collection 대상이되어 수거 된다.
-- Iterator가 없다.
+- 반환되는 Iterator가 없다.
+- [자바스크립트의 메모리 관리](https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_Management)
