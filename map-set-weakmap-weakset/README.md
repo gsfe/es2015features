@@ -27,7 +27,7 @@ m.get( {} || function(){} ) === undefined;
 m.size === 2;
 m.has(key1) === true;
 ```
-[JSBin 예제](http://jsbin.com/ronewamuko/edit?js,console)
+[예제](http://jsbin.com/ronewamuko/edit?js,console)
 
 
 
@@ -48,7 +48,7 @@ s.add('good').add('bad').add('good');   // Set {'good', 'bad'}
 s.size === 2;
 s.has('good');
 ```
-[JSBin 예제](http://jsbin.com/nahetelacu/edit?js,console)
+[예제](http://jsbin.com/nahetelacu/edit?js,console)
 
 
 
@@ -78,15 +78,20 @@ for(var [key, value] of s.entries()){
     console.log('key : '+key+', value : '+value);
 }
 ```
-[JSBin 예제](http://jsbin.com/wekaxaqipu/edit?js,console)
+[예제](http://jsbin.com/wekaxaqipu/edit?js,console)
 
 
 
 ## WeakMap || WeakSet
 
+`WeakMap`과 `WeakSet`의 객체에 대한 참조는 약하게 연결이 되어 있어 저장되어 있는 객체에 대한 참조가 없게되면 `garbage collection` 대상이되어 수거 된다. 그리고 반환되는 `Iterator`가 없다.
+
+
+
 ### Garbage Collection
 
 메모리 할당을 추적하고 할당된 메모리가 더 이상 필요 없어졌을 때 해제하는 작업이다. 하지만 필요없어진 모든 메모리를 해제하는건 아니다.
+[[자바스크립트의 메모리 관리]](https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_Management)
 
 
 
@@ -112,7 +117,7 @@ console.log(wm.get(cat));
 dog = null;
 console.log(wm.get(dog));
 ```
-[JSBin 예제](http://jsbin.com/getofajifi/edit?js,console)
+[예제](http://jsbin.com/getofajifi/edit?js,console)
 
 
 
@@ -155,7 +160,7 @@ console.log(privates.get(public1.aaa));
 console.log(public1.data);
 console.log(public2.data);
 ```
-[JSBin 예제](http://jsbin.com/gimatejile/edit?js,console)
+[예제](http://jsbin.com/gimatejile/edit?js,console)
 
 
 
@@ -177,12 +182,4 @@ console.log(ws.has(num));
 ws.delete(str);
 console.log(ws.has(str));
 ```
-[JSBin 예제](http://jsbin.com/huvatahuhe/edit?js,console)
-
-
-#### Set과 가장 큰 차이점은?
-- 객체의 집합이며 객체만 저장할 수 있다. 
-- 특정 type의 값을 저장할 수는 없다.
-- WeakSet내의 객체에 대한 참조는 약하게 연결이 되어 있어 WeakSet내에 저장되어 있는 객체에 대한 참조가 없게되면 garbage collection 대상이되어 수거 된다.
-- 반환되는 Iterator가 없다.
-- [자바스크립트의 메모리 관리](https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_Management)
+[예제](http://jsbin.com/huvatahuhe/edit?js,console)
