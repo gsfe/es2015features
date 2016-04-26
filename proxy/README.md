@@ -81,7 +81,7 @@ tree.branch1.branch2.twig = "green";
 tree.branch1.branch3.twig = "yellow";
 console.log(tree);
 ```
-[예제](http://jsbin.com/jagibukila/edit?js,console)
+[예제](http://jsbin.com/febujuduvi/edit?js,console)
 
 
 
