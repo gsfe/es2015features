@@ -1,9 +1,6 @@
 ## Proxy
 
-객체(Object)의 13가지 기본적인 기능(속성조회`getter`/할당`setter`, 나열... )을 handler를 이용하여 재정의 하는 기능이다.
-
-
-#### 13가지 기본기능
+객체(Object)의 13가지 기본적인 기능(속성조회`getter`/할당`setter`, 나열... )을 재정의 하는 기능이다.
 
 |  name  |         syntax        |
 |--------|-----------------------|
@@ -90,7 +87,7 @@ console.log(tree);
 
 ##Reflect
 
-`Reflect`에는 14가지 메소드가 정의되어 있어 객체의 속성과 메서드를 조사하고 조작하는 API 이다. 그리고 함수가 아니여서 constructor가 없다.
+`Reflect`는 Proxy의 트랩( handler )과 동일한 13가지 메소드를 제공하나 직접 기본동작을 구현하지 않고 기본동작으로 위임할 수 있게 하므로 Proxy와 함께 사용되는 경우가 많고 constructor가 없어 new 연산자로 인스턴스화할 수 없다.
 
 |  name  |         syntax        |
 |--------|-----------------------|
@@ -111,29 +108,16 @@ console.log(tree);
 
 ```javascript
 var obj = {
-    version: "es6"
+    version: "es6",
+    name: "javascript",
+    extension: "js"
 };
 
 console.log( obj );
 Reflect.deleteProperty( obj, "version" );
 //delete obj.version;
 console.log( obj );
+Reflect.set(obj, "discription", "Babel JS");
+console.log(Reflect.get(obj, "discription"));
 ```
-[예제](http://jsbin.com/jebifetaye/edit?js,console)
-
-
-```javascript
-var obj = {
-    version: "es6",
-    name: "javascript",
-    extension: "js"
-};
-
-// Reflect의 enumerate 메서드는 주어진 객체의 iterator를 반환한다.
-var iterator = Reflect.enumerate( obj );
-console.log(iterator.next());
-console.log(iterator.next());
-console.log(iterator.next());
-console.log(iterator.next());
-```
-[예제](http://jsbin.com/belokusafa/edit?js,console)
+[예제](http://jsbin.com/mifasowofa/edit?js,console)
