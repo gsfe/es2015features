@@ -71,6 +71,7 @@ function Tree(){
                 target[prop] = Tree();
             }
             return Reflect.get(target, prop, receiver);
+            //return target[prop];
         }
     });
 }
@@ -79,7 +80,8 @@ console.log(tree);
 tree.branch1.branch1 = "red";
 tree.branch1.branch2.twig = "green";
 tree.branch1.branch3.twig = "yellow";
-console.log(tree);
+console.log(tree.branch1.branch1);
+console.log(tree.branch1.branch3);
 ```
 [예제](http://jsbin.com/febujuduvi/edit?js,console)
 

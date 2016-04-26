@@ -1,6 +1,6 @@
 ## Map
 
-`Key`와 `Value`를 가지는 객체 이다. `get`과 `set` 으로 데이터를 참조/할당 할 수 있고 `{}` 및 `function(){}`을 key값을 사용 할 수 있지만 인스턴스 객체가 되어야 value에 접근할 수 있다.
+`Key`와 `Value`를 가지는 객체 이다. key값으로  `{}` 및 `function(){}`을 사용 할 수 있다. 인스턴스 객체가 되어야 value에 접근할 수 있다.
 
 |  method  |         return value        |
 |----------|-----------------------------|
@@ -22,7 +22,8 @@ m.set(keyFunc = 'value Function');
 m.get(key1) === 'value';
 m.get(keyObj) === 'value Object';
 m.get(keyFunc) === 'value Function';
-m.get( {} || function(){} ) === undefined;
+m.get( {} ) === undefined;
+m.get( function(){} ) === undefined;
 
 m.size === 2;
 m.has(key1) === true;
@@ -52,7 +53,7 @@ s.has('good');
 
 
 
-## (Map || Set) Iterator
+## Map Iterator & Set Iterator
 
 `Map`과 `Set`은 Iterator를 각각 반환하여 `for-of`로 객체의 `key/value` 참조할 수 있다.
 
@@ -82,7 +83,7 @@ for(var [key, value] of s.entries()){
 
 
 
-## WeakMap || WeakSet
+## WeakMap & WeakSet
 
 `WeakMap`과 `WeakSet`의 객체에 대한 참조는 약하게 연결이 되어 있어 저장되어 있는 객체에 대한 참조가 없게되면 `garbage collection` 대상이되어 수거 된다. 그리고 반환되는 `Iterator`가 없다.
 
@@ -124,8 +125,8 @@ console.log(wm.get(dog));
 #### 왜 WeakMap을 사용하지? 
 
 - 객체의 사적인 정보를 저장하기 위해
-- 상세 구현 내용을 숨기기 위해 
-- ["Hiding Implementation Details with ECMAScript 6 WeakMaps"](http://fitzgeraldnick.com/weblog/53/)
+- 상세 구현 내용을 숨기기 위해
+["Hiding Implementation Details with ECMAScript 6 WeakMaps"](http://fitzgeraldnick.com/weblog/53/)
 
 ```javascript
 let privates = new WeakMap();
