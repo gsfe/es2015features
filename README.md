@@ -8,7 +8,7 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [03. Promise](./promise)
 - [04. Class](./classes)
 - [05. Generator](./generator)
-- [06. Proxy](./proxy)
+- [06. Proxy, Reflect](./proxy)
 - [07. Enhanced Object Literals](./enhanced-object-literals)
 - [08. Parameter(Default, Rest, Spread)](./parameter)
 - [09. Destructuring](./destructuring)
