@@ -29,10 +29,30 @@ console.log(genFunc.next());
 [기본구조](http://jsbin.com/rivaxu/2/edit?js,console)
 
 
+### yield
+앞서 설명한 것처럼 `Generator` 함수를 실행해서 반환된 `iterator`의 `next()` 메서드를 호출하면 선언된 `Generator` 함수의 다음 `yield` 까지 실행된다.
+이때 `next()` 메서드에 특정값을 인자로 전달하면 `yield` 구문에서 받은 인자값을 반환해준다. 단, `yield` 에서 멈춘 뒤 다시 실행될 때 `yield` 가 `next()` 메서드에서 받은 값을 반환하기 때문에 첫 `next()` 메서드 호출에서 전달한 값은 어디에서도 참조될 수 없다는 것에 주의해야 한다.  
+
+```javascript
+function* test () {
+	for (var i=0; i<3; i++) {
+		let val = yield i;
+		console.log(val); //456, 789 출력
+	}
+}
+
+var genFunc = test();
+
+console.log(genFunc.next('123')); //처음 전달한 123 값은 참조하지 못한다.
+console.log(genFunc.next('456'));
+console.log(genFunc.next('789'));
+```
+
 
 ### yield*
 `yield*` 표현은 다른 generator 또는 반복자 객체에 위임하는데 사용된다.
-피연산자를 반복하고 반환되는 값을 또 yield 하게 되며 `yield*` 표현 자체의 값은 반복자가 종료될 때 반환되는 값(value)이다.
+피연산자를 반복하고 반환되는 값을 또 yield 하게 되며 `yield*` 가 리턴하는 값은 반복자가 종료될 때 반환(`return`)되는 값(value)이다.
+**앞서 살펴본 `yield` 와는 달리 `next()` 에서 전달한 값을 반환하지 않고 반복자가 종료될 때 `return` 되는 값만 반환한다.**
 `yield*` 표현은 배열, 문자열 또는 arguments 와 같이 다른 반복 가능한 객체도 `yield` 할 수 있다.
 
 ```javascript
@@ -64,6 +84,7 @@ console.log(gen.next().value); // 20
 
 
 `yield*` 는 구문이 아닌 표현이기 때문에 값으로 평가되며 `yield*` 표현 자체의 값은 반복자가 종료될 때(done -> true) 반환되는 값이다.
+
 
 ```javascript
 function* g4() {
@@ -133,8 +154,7 @@ function async (proc, ...params) {
 	return new Promise((resolve, reject) => {
 		(function asyncFlow (value) {
 			//다음 yield expression 까지 실행한다.
-			//처음에는 next 메서드에 전달되는 인자가 의미가 없지만,
-			//두번째 실행부터는 받은 인자를 yield의 결과값으로 반환한다.
+			//next 메서드에 전달되는 인자가 yield의 결과값으로 반환된다.
 			let result = iterator.next(value);
 
 			//Generator 함수의 실행이 완전히 완료되었다면,
