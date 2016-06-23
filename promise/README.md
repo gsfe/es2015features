@@ -246,4 +246,4 @@ Promise.all([square(5), square(7), square(9)])
 
 ### 참고 자료
 
-Promise 와 관련해서 한빛 미디어에서 [무료 ebook](http://www.hanbit.co.kr/ebook/look.html?isbn=9788968487293)을 배포중인데, 이 책의 내용이 상당히 괜찮은 편이어서 이 책을 참고하는 것을 권장한다.
+Promise 와 관련해서 한빛 미디어에서 [무료 ebook](http://www.hanbit.co.kr/store/books/look.php?p_code=E5027975256)을 배포중인데, 이 책의 내용이 상당히 괜찮은 편이어서 이 책을 참고하는 것을 권장한다.
