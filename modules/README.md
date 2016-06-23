@@ -38,14 +38,42 @@ export default {
 
 기본값은 `export default` 로 표현하고, 하나의 모듈 당 하나만 지정할 수 있다.
 
-`export` 할 때 아래와 같은 방식으로 `export` 하는 것은 불가능하다.
+`export` 할 때 아래와 같이 함수나 변수만 단독으로 `export` 하면 오류가 발생한다.
 
 ```javascript
 function sum (x, y) {
 	return x + y;
 }
 
-export sum
+export sum; //오류 발생
+```
+
+아래와 같이 객체 형태로 `export` 해야 오류가 발생하지 않는다.
+
+```javascript
+function sum (x, y) {
+	return x + y;
+}
+
+export { sum }; //정상적으로 export
+```
+
+위의 예는 아래와 완전히 동일하게 동작한다.
+
+```javascript
+export function sum (x, y) {
+	return x + y;
+}
+```
+
+`default` 의 경우 객체 형태로 `export` 하지 않아도 오류가 발생하지 않는다.
+
+```javascript
+function sum (x, y) {
+	return x + y;
+}
+
+export default sum; //객체로 감싸지 않아도 정상적으로 export
 ```
 
 모듈은 모듈만의 scope을 갖게 되므로 전역이 오염되지 않는다. 또 `export` 키워드는 외부에 노출한다는 의미일 뿐 `export var pi = 3.14` 라고 선언해도 모듈 내에서 `pi` 변수에 접근 가능한 것은 변함이 없다.
@@ -81,6 +109,7 @@ console.log('sum result: %d', add(pi, 20));
 
 
 하나의 멤버가 아니라 모듈에서 `export` 한 모든 멤버를 가져오고 싶다면 아래와 같이 `*` 을 사용하면 된다.
+아래의 예에서 `default` 모듈은 `math.default` 로 참조할 수 있다.
 
 ```javascript
 'use strict';

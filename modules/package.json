@@ -10,5 +10,8 @@
     "browserify": "^13.0.0",
     "gulp": "^3.9.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "browser-sync": "^2.13.0"
   }
 }

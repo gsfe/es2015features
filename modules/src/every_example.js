@@ -4,3 +4,6 @@
 import * as math from './module/math';
 
 console.log('sum result: %d', math.sum(math.pi, 20));
+
+//default 모듈은 default 라는 이름으로 제공
+console.log(math);
