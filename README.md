@@ -6,7 +6,7 @@ ES2015에서 추가된 명세에 대한 스터디 모임 저장소입니다. 각
 - [01. Arrow Functions](./arrow-functions)
 - [02. Modules](./modules)
 - [03. Promise](./promise)
-- [04. Class](./classes)
+- [04. Class](./class)
 - [05. Generator](./generator)
 - [06. Proxy, Reflect](./proxy)
 - [07. Enhanced Object Literals](./enhanced-object-literals)
