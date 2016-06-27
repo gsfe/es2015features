@@ -153,22 +153,23 @@ function async (proc, ...params) {
 
 	return new Promise((resolve, reject) => {
 		(function asyncFlow (value) {
-			//다음 yield expression 까지 실행한다.
-			//next 메서드에 전달되는 인자가 yield의 결과값으로 반환된다.
+			//asyncFlow 의 파라메터가 next 메서드로 전달되어 yield의 결과값으로 반환되며,
+			//이어서 다음 yield expression 까지 실행되어 yield 된 값을 result로 받는다.
 			let result = iterator.next(value);
 
-			//Generator 함수의 실행이 완전히 완료되었다면,
-			if (result.done) {
-				//최종 결과값을 체인에 전달 (Generator 함수에 return 이 없다면 undefined 가 전달된다)
-				resolve(result.value);
-			}
 			//아직 Generator 함수의 실행이 완료되지 않았고, result.value 가 Promise 객체인 경우,
-			else if (result.value instanceof Promise) {
-				//Promise를 실행한 결과를 다시 asyncFlow에 전달
+			if (result.value instanceof Promise) {
+				//Promise를 실행한 결과를 파라메터로 asyncFlow 함수를 다시 실행
 				result.value.then(asyncFlow).catch(reject);
 			}
-			//아직 Generator 함수의 실행이 완료되지 않았고, result 가 Promise 객체가 아닌경우
+			//Generator 함수의 실행이 완전히 완료되었다면,
+			else if (result.done) {
+				//최종 결과값을 체인에 전달 (Generator 함수 proc에 return 이 없다면 undefined 가 전달된다)
+				resolve(result.value);
+			}
+			//아직 Generator 함수의 실행이 완료되지 않았고, result(yield 된 값)가 Promise 객체가 아닌경우
 			else {
+				//결과를 파라메터로 asyncFlow 함수를 다시 실행
 				asyncFlow(result.value);
 			}
 		}) ();
