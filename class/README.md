@@ -228,12 +228,13 @@ Korean 생성자를 사용해서 `new` 키워드로 새로운 인스턴스를 �
 ##### 프로토타입 멤버 상속
 Korean 생성자의 인스턴스의 프로토타입 체인에는 기본적으로 Korean 생성자의 프로토타입 객체가 연결된다. Korean 생성자 프로토타입 객체의 프로토타입 체인에 Person 생성자의 프로토타입 객체를 연결하기만 하면 프로토타입 멤버 상속을 구현할 수 있다. 방법은 여러가지가 있는데 여기에서는 Korean 생성자 프로토타입 객체를 아예 Person 생성자의 인스턴스로 치환하는 방법을 사용했다. Person 생성자의 인스턴스의 프로토타입 체인은 바로 Person 생성자의 프로토타입과 연결되어 있기 때문에 이를 응용한 것이다. 하지만 이 경우 constructor 가 변경되기 때문에 다시 constructor 를 Korean 생성자로 수정해주는 과정이 동반된다.
 
-setPrototypeOf 를 활용해서 아래와 같이 직접 프로토타입 체인을 연결해줄 수도 있다.
+
+Person 생성자의 인스턴스로 치환하는 방법 외에도, setPrototypeOf 를 활용해서 아래와 같이 직접 프로토타입 체인을 연결해줄 수도 있다. 이 경우 `constructor` 를 재설정해줄 필요가 없다.
 ```javascript
 Object.setPrototypeOf(Korean.prototype, Person.prototype);
 ```
 
-아예 숨겨진 프로토타입 체인에 직접 할당하는 방법도 있다.
+또, 아예 숨겨진 프로토타입 체인에 직접 할당하는 방법도 있다. 이 방법도 마찬가지로 `constructor` 를 재설정해줄 필요가 없다.
 ```javascript
 Korean.prototype.__proto__ = Person.prototype
 ```
