@@ -133,7 +133,7 @@ let obj3 = {
 Object.getPrototypeOf(obj3) === Object.prototype; //false
 obj3.__proto__; //undefined
 Object.getPrototypeOf(obj3); //null
-obj1.toString(); //Uncaught TypeError: obj1.toString is not a function(…)
+obj3.toString(); //Uncaught TypeError: obj3.toString is not a function(…)
 
 //아래와 같이 값의 형태로 할당해도 할당되지 않는다.
 let obj4 = {};
