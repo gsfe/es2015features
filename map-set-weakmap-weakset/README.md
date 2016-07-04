@@ -1,6 +1,6 @@
 ## Map
 
-`Key`와 `Value`를 가지는 객체 이다. key값으로  `{}` 및 `function(){}`을 사용 할 수 있다. 인스턴스 객체가 되어야 value에 접근할 수 있다.
+`Key`와 `Value`를 가지는 객체 이다. 키값으로 Primitive value 외에도 `Object` 와 `Function`을 사용 할 수 있다.
 
 |  method  |         return value        |
 |----------|-----------------------------|
@@ -10,25 +10,52 @@
 |   has    | 지정된 key값이 있는 경우 true를 반환합니다. |
 |  clear   | 요소를 모두 제거합니다. |
 
+
 ```javascript
-var m = new Map(); 
+var map = new Map();
 var keyObj = {};
-var keyFunc = function(){};
+var keyFunc = function () {};
 
-m.set('key1', 'value');
-m.set(keyObj, 'value Object');
-m.set(keyFunc = 'value Function');
+map.set('키', '홍길동');
+map.set(keyObj, '이순신');
+map.set(keyFunc, '장보고');
 
-m.get(key1) === 'value';
-m.get(keyObj) === 'value Object';
-m.get(keyFunc) === 'value Function';
-m.get( {} ) === undefined;
-m.get( function(){} ) === undefined;
+map.get('키') === '홍길동'; //true
+map.get(keyObj) === '이순신'; //true
+map.get(keyFunc) === '장보고'; //true
+map.get({}) === undefined; //true
+map.get(function () {}) === undefined; //true
 
-m.size === 2;
-m.has(key1) === true;
+map.size === 3; //true
+map.has(key1) === true; //true
 ```
 [예제](http://jsbin.com/ronewamuko/edit?js,console)
+
+
+### 키의 등가성
+키의 등가성은 `"same-value" 알고리즘`을 기반으로 한다. 모든 값은 `===` 연산자의 동작에 따라 동일 여부를 판단하며 단, `NaN !== NaN` 에도 불구하고 `NaN` 은 `NaN` 과 동일한 것으로 간주된다.
+
+### Object와 Map의 차이
+
+Object 와 Map 은 둘 다 Key-Value 형태라는 점에서 비슷하기 때문에, 지금까지 Object 는 Map 으로 사용되고 왔다. 하지만 Object 와 Map 사이에는 몇가지 중요한 차이가 존재한다.
+
+- Object는 프로토 타입을 가지고 있기 때문에 기본적으로 몇 개의 키가 존재한다. 물론 `Object.create (null)` 을 사용하여 해결할 수는 있다.
+- Object 의 키는 String 이지만, Map 에서는 임의의 값이 키가 될 수 있다.
+- Map 의 크기는 쉽게 얻을 수 있지만 Object 의 크기는 수동으로 기록해야 한다.
+
+항상 Map 이 Object 보다 좋다는 것을 의미하지는 않으며 경우에 따라 선택할 필요가 있다.
+
+### Array와의 관계
+
+```javascript
+var arr = [["키 1", "값 1"], ["키 2", "값 2"]] ;
+
+//Map 생성자를 사용하여 키 값의 2 차원 배열을 맵으로 변환
+var map = new Map(arr) ;
+
+map.get("키 1"); //"값 1"을 리턴
+```
+
 
 
 
@@ -44,10 +71,10 @@ m.has(key1) === true;
 |  clear   | 요소를 모두 제거합니다. |
 
 ```javascript
-var s = new Set();
-s.add('good').add('bad').add('good');   // Set {'good', 'bad'}
-s.size === 2;
-s.has('good');
+var set = new Set();
+set.add('good').add('bad').add('good');   // Set {'good', 'bad'}
+set.size === 2;
+set.has('good');
 ```
 [예제](http://jsbin.com/nahetelacu/edit?js,console)
 
@@ -66,20 +93,31 @@ s.has('good');
 단 Set의 `keys`와 `entries` Iterator는 key값이 없는 특성상 value 값이 key값으로 반환된다.
 
 ```javascript
-var m = new Map();
-var s = new Set();
-m.set('key1', 'key value1').set('key2', 'key value2');
-s.add('set value1').add('set value2');
+var map = new Map();
+var set = new Set();
+map.set('key1', 'value1').set('key2', 'value2');
+set.add('value1').add('value2');
 
 //entries Iterator
-for(var [key, value] of m.entries()){
-    console.log('key : '+key+', value : '+value);
+for (var [key, value] of map) {
+    console.log(key +  "="  + value);
 }
-for(var [key, value] of s.entries()){
+//위의 for..of 문은 아래와 같다
+for (var [key, value] of map.entries()) {
+    console.log(key +  "="  + value);
+}
+//위의 for..of 문은 아래와 같다
+map.forEach(function (value, key, map) {
+    console.log(key +  "="  + value);
+});
+
+
+for (var [key, value] of set.entries()){
     console.log('key : '+key+', value : '+value);
 }
 ```
 [예제](http://jsbin.com/wekaxaqipu/edit?js,console)
+
 
 
 
@@ -122,7 +160,7 @@ console.log(wm.get(dog));
 
 
 
-#### 왜 WeakMap을 사용하지? 
+#### 왜 WeakMap을 사용하지?
 
 - 객체의 사적인 정보를 저장하기 위해
 - 상세 구현 내용을 숨기기 위해
@@ -131,22 +169,22 @@ console.log(wm.get(dog));
 ```javascript
 let privates = new WeakMap();
 class Public {
-    constructor(){
+    constructor () {
       this.defaults = {
           aaa:0,
           bbb:0
       }
-    
+
         this.aaa = {};
         privates.set(this.aaa, this.defaults);
     }
-  
-    get data(){
+
+    get data () {
         let me = privates.get(this);
         return me;
     }
-  
-    set data(obj){
+
+    set data (obj) {
         privates.set(this, obj);
     }
 }
