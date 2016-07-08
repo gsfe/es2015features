@@ -31,17 +31,18 @@ var proxy = new Proxy(target, handler);
 #### Examples
 
 ```javascript
-var target = function(){}
+var target = {};
 var handler = {
-    get:function(obj, prop){
+    get: function (obj, prop) {
         return 'get : ' + obj[prop];
     },
-    set:function(obj, prop, value, receiver){
-        if(prop == 'aaa'){
+    set: function (obj, prop, value, receiver) {
+        if (prop == 'aaa') {
             obj[prop] = value;
             return value;
-        }else{
-            throw new Error("이 객체에 값을 정의 할 수 없습니다.");
+        }
+        else {
+            throw new Error('이 객체에 값을 정의 할 수 없습니다.');
         }
     }
 };
@@ -50,15 +51,16 @@ var proxy = new Proxy(target, handler);
 proxy.aaa = 'aaa';
 console.log(proxy.aaa);
 proxy.bbb = 'bbb';
+console.log(proxy.bbb);
 ```
 [예제](http://jsbin.com/doroqizicu/edit?js,console)
 
 
-####Examples
+
 
 ```javascript
 var tree = {};
-tree.branch1.branch1 = "red";
+tree.branch1.branch1 = 'red';
 ```
 
 ```javascript
@@ -77,13 +79,19 @@ function Tree(){
 }
 
 console.log(tree);
-tree.branch1.branch1 = "red";
-tree.branch1.branch2.twig = "green";
-tree.branch1.branch3.twig = "yellow";
+tree.branch1.branch1 = 'red';
+tree.branch1.branch2.twig = 'green';
+tree.branch1.branch3.twig = 'yellow';
 console.log(tree.branch1.branch1);
 console.log(tree.branch1.branch3);
 ```
 [예제](http://jsbin.com/febujuduvi/edit?js,console)
+
+
+#### Proxy.revocable
+
+Proxy 에는 취소 가능한 Proxy 객체를 만드는 메서드인 revocable이 존재한다. Proxy를 사용할 때와 동일하게 target 과 handler 를 파라메터로 실행하면, 취소 가능한 Proxy 객체가 반환되는데, `{proxy : proxy, revoke : revoke}` 속성을 가지는 객체이다. `proxy`는 프록시 객체이고, revoke 메서드는 프록시 객체에 적용된 프록시가 더이상 사용할 수 없게 되고 이후로 모든 핸들러에 `TypeError`를 발생시킨다.
+
 
 
 
@@ -110,16 +118,16 @@ console.log(tree.branch1.branch3);
 
 ```javascript
 var obj = {
-    version: "es6",
-    name: "javascript",
-    extension: "js"
+    version: 'es6',
+    name: 'javascript',
+    extension: 'js'
 };
 
-console.log( obj );
-Reflect.deleteProperty( obj, "version" );
+console.log(obj);
+Reflect.deleteProperty(obj, 'version');
 //delete obj.version;
-console.log( obj );
-Reflect.set(obj, "discription", "Babel JS");
-console.log(Reflect.get(obj, "discription"));
+console.log(obj);
+Reflect.set(obj, 'discription', 'Babel JS');
+console.log(Reflect.get(obj, 'discription'));
 ```
 [예제](http://jsbin.com/mifasowofa/edit?js,console)
