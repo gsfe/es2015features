@@ -414,3 +414,6 @@ let p = new Proxy(c, {
 new p(1, 2, 3);
 //c, [ 1, 2, 3 ], p
 ```
+
+## Proxy 활용 예제
+https://github.com/mikaelbr/proxy-fun/blob/master/examples-summary.md
