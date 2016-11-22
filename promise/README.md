@@ -228,18 +228,16 @@ function square (num) {
 }
 
 function sum (arr) {
-	return new Promise((resolve, reject) => {
-		resolve(arr.reduce((sum, num) => sum + num, 0));
-	});
+	return arr.reduce((sum, num) => sum + num, 0);
 }
 
-
+console.log('3초 뒤 결과 출력..');
 Promise.all([square(5), square(7), square(9)])
 	.then(sum)
-	.then(result => console.log(result));
+	.then(console.log);
 ```
 
-[Promise.all 예제](http://jsbin.com/kohici/3/edit?js,console)
+[Promise.all 예제](http://jsbin.com/kohici/6/edit?js,console)
 
 3 개의 비동기 작업의 결과를 받아서 이들의 합을 구하고 이어서 결과를 출력하는 형태이다. Promise 부분만 보면 전체적으로 어떻게 동작할 지 모두 예측이 가능한 가시성 있는 코드가 쉽게 작성되었다.
 
