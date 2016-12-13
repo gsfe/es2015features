@@ -66,7 +66,7 @@ export function sum (x, y) {
 }
 ```
 
-`default` 의 경우 객체 형태로 `export` 하지 않아도 오류가 발생하지 않는다.
+`default` 의 경우 선언과 동시에 `export` 하지 않아도 오류가 발생하지 않는다.
 
 ```javascript
 function sum (x, y) {
@@ -95,7 +95,6 @@ import { sum, pi } from './module/math';
 console.log('sum result: %d', sum(pi, 20));
 ```
 
-
 멤버를 가져올 때 별명을 지어서 가져올 수도 있는데, 이때에는 아래와 같이 `as` 키워드를 사용한다.
 
 ```javascript
@@ -118,6 +117,12 @@ console.log('sum result: %d', add(pi, 20));
 import * as math from './module/math';
 
 console.log('sum result: %d', math.sum(math.pi, 20));
+
+
+모듈을 가져오자마자 바로 `export` 해줄 수도 있다.
+
+```javascript
+export * from './module/math';
 ```
 
 
