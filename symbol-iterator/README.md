@@ -62,60 +62,56 @@ Symbol.keyFor(sym); //'Hello everybody!'
 심볼은 자바스크립트의 내부 언어 동작을 나타내는 몇가지 내장된 심볼들을 가지고 있다.
 
 
-> Symbol.iterator
->
-> 객체의 기본 반복자(iterator)를 반환하는 메소드. for...of에서 사용됨.
->
-> Symbol.match
->
-> 문자열과 매치(match)되는 메소드, 또한 객체가 정규식으로서 사용되는지 확인하는데도 사용. String.prototype.match()에서 사용됨.
->
-> Symbol.replace
->
-> 문자열 중 매치되는 일부 문자열을 대체하는 메소드. String.prototype.replace()에서 사용됨.
->
-> Symbol.search
->
-> 정규식과 매치되는 문자열의 인덱스(index)를 반환하는 메소드. String.prototype.search()에서 사용됨.
->
-> Symbol.split
->
-> 문자열을 정규식과 매치되는 인덱스들에서 나누는 메소드. String.prototype.split()에서 사용됨.
->
-> Symbol.hasInstance
->
-> 생성자 객체가 어떤 객체를 자신의 인스턴스(instance)로 인식하는지 확인하는데 사용하는 메소드. instanceof에서 사용됨.
->
-> Symbol.isConcatSpreadable
->
-> 어떤 객체가 자신의 배열 원소들로 단순화(flatten)되어야 하는지 나타내는 불리언(Boolean) 값(불명확). Array.prototype.concat()에서 사용됨.
->
-> Symbol.unscopables
->
-> 속성 값들을 나타내는 문자열 배열 값. These are excluded from the with environment bindings of the associated objects.
->
-> Symbol.species
->
-> 파생(derived) 객체를 생성하는데 사용되는 생성자 함수.
->
-> Symbol.toPrimitive
->
-> 객체를 기본형 값으로 변환하는 메소드.
->
-> Symbol.toStringTag
->
-> 객체의 기본 설명(description)에 사용되는 문자열 값. Object.prototype.toString()에서 사용됨.
+- Symbol.iterator
+    객체의 기본 반복자(iterator)를 반환하는 메소드. for...of에서 사용됨.
+
+- Symbol.match
+    문자열과 매치(match)되는 메소드, 또한 객체가 정규식으로서 사용되는지 확인하는데도 사용. String.prototype.match()에서 사용됨.
+
+- Symbol.replace
+    문자열 중 매치되는 일부 문자열을 대체하는 메소드. String.prototype.replace()에서 사용됨.
+
+- Symbol.search
+    정규식과 매치되는 문자열의 인덱스(index)를 반환하는 메소드. String.prototype.search()에서 사용됨.
+
+- Symbol.split
+    문자열을 정규식과 매치되는 인덱스들에서 나누는 메소드. String.prototype.split()에서 사용됨.
+
+- Symbol.hasInstance
+    생성자 객체가 어떤 객체를 자신의 인스턴스(instance)로 인식하는지 확인하는데 사용하는 메소드. instanceof에서 사용됨.
+
+- Symbol.isConcatSpreadable
+    어떤 객체가 자신의 배열 원소들로 단순화(flatten)되어야 하는지 나타내는 불리언(Boolean) 값(불명확). Array.prototype.concat()에서 사용됨.
+
+- Symbol.unscopables
+    속성 값들을 나타내는 문자열 배열 값. These are excluded from the with environment bindings of the associated objects.
+
+- Symbol.species
+    파생(derived) 객체를 생성하는데 사용되는 생성자 함수.
+
+- Symbol.toPrimitive
+    객체를 기본형 값으로 변환하는 메소드.
+
+- Symbol.toStringTag
+    객체의 기본 설명(description)에 사용되는 문자열 값. Object.prototype.toString()에서 사용됨.
+
+
+  
+
+  
 
 
 
 ## 이터레이터와 이터러블
 
-
-### 이터러블하다
+### 이터러블
     - 자바스크립트에서 이터러블하다는 말은 객체명[Symbol.iterator]() 를 실행시켜서 next() 로 탐색 가능하다는 말이다.
     - [Symbol.iterator] 키를 가지고 있는 객체는 이터러블한 것으로 간주된다.
     - [Symbol.iterator] 라는 키를 가진 메서드는 이터레이터 팩토리 메서드이다.
-    - 객체명[Symbol.iterator]() 의 결과값(=이터레이터)이 next() 로 탐색 가능하지 않으면 문제가 된다. 이터러블의 이터레이터 팩토리 메소드([Symbol.iterator])가 이터레이터 객체를 반환하지 않으면 제대로 형식을 갖추지 않은 이터러블(non-well-formed iterable)이다. 그렇게 사용하면 런타임 예외 또는 버그가 발생할 수 있다.
+    - 객체명[Symbol.iterator]() 의 결과값(=이터레이터)이 next() 로 탐색 가능하지 않으면 문제가 된다.
+      이터러블의 이터레이터 팩토리 메소드([Symbol.iterator])가 이터레이터 객체를 반환하지 않으면 
+      제대로 형식을 갖추지 않은 이터러블(non-well-formed iterable)이다.
+      그렇게 사용하면 런타임 예외 또는 버그가 발생할 수 있다.
         var nonWellFormedIterable = {};
         nonWellFormedIterable[Symbol.iterator] = () => 1; //next() 가 없다..
         [...nonWellFormedIterable] // TypeError: [] is not a function
